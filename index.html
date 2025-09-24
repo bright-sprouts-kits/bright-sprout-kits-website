@@ -1,4 +1,120 @@
 <!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bright Sprout Kits</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Bubblegum Sans', cursive;
+        }
+        .kit-icon {
+            display: flex;
+            align-items: center;
+        }
+        .kit-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #4c4d4f;
+        }
+        .text-size-18 { font-size: 18px; }
+        .text-size-24 { font-size: 24px; }
+        .text-size-36 { font-size: 36px; }
+        .bg-color-1 { background-color: #ffe6f2; }
+        .text-color-1 { color: #8e44ad; }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between">
+            <h1 class="text-2xl font-bold text-indigo-600">Brightsprout Kits</h1>
+            <nav class="mt-4 sm:mt-0">
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="text-gray-600 hover:text-indigo-600 transition duration-300">Home</a></li>
+                    <li><a href="#shop" class="text-gray-600 hover:text-indigo-600 transition duration-300">Shop</a></li>
+                    <li><a href="#about" class="text-gray-600 hover:text-indigo-600 transition duration-300">About</a></li>
+                    <li><a href="#contact" class="text-gray-600 hover:text-indigo-600 transition duration-300">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content (Home Section) -->
+    <main id="home" class="container mx-auto px-4 py-12">
+        <h2 class="text-4xl font-bold text-center text-indigo-800 mb-4">Welcome to Brightsprout Kits</h2>
+        <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+            Helping young minds grow with creative and fun learning kits. Explore our digital bundles designed for a brighter future.
+        </p>
+
+        <!-- Product Grid (Shop Section) -->
+        <section id="shop" class="py-12">
+            <h2 class="text-4xl font-bold text-center text-indigo-800 mb-4">Our Products</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+                Discover our collection of digital learning kits designed to make learning fun and tangible for children.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                <!-- Ultimate Tracing Bundle Card -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 max-w-sm w-full">
+                    <img src="https://placehold.co/600x400/93c5fd/1e3a8a?text=Tracing+Bundle" alt="Ultimate Tracing Bundle" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Ultimate Tracing Bundle: Alphabets, Numbers & Shapes</h3>
+                        <p class="text-gray-500 text-sm mb-4">A complete bundle of tracing sheets with over 50 pages in one downloadable PDF, perfect for early learners to practice writing and drawing.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-indigo-600">Ksh 2,000.00</span>
+                            <a href="https://brightsproutkits.vendblue.store/product/ultimate-tracing-bundle-alphabet-numbers-shapes-one-pdf" class="bg-indigo-600 text-white font-medium py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="bg-gray-200 rounded-xl p-8 my-12 text-center">
+            <h2 class="text-3xl font-bold text-indigo-800 mb-4">About Us</h2>
+            <p class="text-gray-700 max-w-2xl mx-auto">
+                At Brightsprout Kits, we believe that education should be an adventure. Our mission is to create high-quality, engaging, and fun learning materials that help children build essential skills from the comfort of their homes. Every kit is carefully designed to spark curiosity and creativity.
+            </p>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-12 text-center">
+            <h2 class="text-3xl font-bold text-indigo-800 mb-4">Get In Touch</h2>
+            <p class="text-gray-700 max-w-2xl mx-auto mb-6">
+                Have a question or just want to say hello? We'd love to hear from you!
+            </p>
+            <form action="#" method="POST" class="max-w-md mx-auto">
+                <div class="mb-4">
+                    <input type="text" placeholder="Your Name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="mb-4">
+                    <input type="email" placeholder="Your Email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="mb-6">
+                    <textarea placeholder="Your Message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-500"></textarea>
+                </div>
+                <button type="submit" class="bg-indigo-600 text-white font-medium py-3 px-8 rounded-full hover:bg-indigo-700 transition duration-300">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 Brightsprout Kits. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
