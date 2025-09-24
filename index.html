@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bright Sprout Kits</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -18,99 +18,917 @@
         .kit-icon {
             display: flex;
             align-items: center;
+            justify-content: center;
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 5rem;
+            line-height: 1;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
-        .kit-icon svg {
-            width: 20px;
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        .bounce-animation {
+            animation: bounce 0.6s ease-in-out;
+        }
+        @keyframes button-press {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.95);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .button-press-animation {
+            animation: button-press 0.2s ease-out;
+        }
+        /* Storybook Animations */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes wobble {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+        @keyframes spinner {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .spinner {
+            animation: spinner 1s linear infinite;
+        }
+
+        /* --- IMPROVED CSS ILLUSTRATIONS --- */
+
+        .illustration-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        /* Sun Illustration */
+        .sun-illustration {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #FFD700 0%, #FFB600 100%);
+            border-radius: 50%;
+            position: absolute;
+            left: 10%;
+            top: 10%;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            cursor: pointer;
+        }
+        .sun-ray {
+            width: 25px;
+            height: 60px;
+            background-color: #FFD700;
+            position: absolute;
+            transform-origin: bottom center;
+            border-radius: 5px;
+            opacity: 0.8;
+            transition: transform 0.3s ease-in-out;
+        }
+        .sun-illustration:hover .sun-ray {
+            transform: scale(1.1) translateY(-80px);
+            opacity: 1;
+        }
+        .sun-ray:nth-child(1) { transform: rotate(0deg) translateY(-85px); }
+        .sun-ray:nth-child(2) { transform: rotate(45deg) translateY(-85px); }
+        .sun-ray:nth-child(3) { transform: rotate(90deg) translateY(-85px); }
+        .sun-ray:nth-child(4) { transform: rotate(135deg) translateY(-85px); }
+        .sun-ray:nth-child(5) { transform: rotate(180deg) translateY(-85px); }
+        .sun-ray:nth-child(6) { transform: rotate(225deg) translateY(-85px); }
+        .sun-ray:nth-child(7) { transform: rotate(270deg) translateY(-85px); }
+        .sun-ray:nth-child(8) { transform: rotate(315deg) translateY(-85px); }
+
+        /* Bee Illustration */
+        .bee-illustration {
+            width: 80px;
+            height: 40px;
+            background: #FFD700;
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+        }
+        .bee-illustration::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: black;
+            border-radius: 50%;
+            left: -10px;
+            top: 5px;
+        }
+        .bee-illustration::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            left: 5px;
+            top: 10px;
+            box-shadow: 20px 0 0 white;
+        }
+        .bee-wing {
+            width: 30px;
             height: 20px;
-            fill: #4c4d4f;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+            position: absolute;
+            top: -15px;
+            z-index: -1;
+            transition: all 0.2s ease-in-out;
         }
-        .text-size-18 { font-size: 18px; }
-        .text-size-24 { font-size: 24px; }
-        .text-size-36 { font-size: 36px; }
-        .bg-color-1 { background-color: #ffe6f2; }
-        .text-color-1 { color: #8e44ad; }
+        .bee-wing.left { left: 15px; transform: rotate(30deg); }
+        .bee-wing.right { left: 35px; transform: rotate(-30deg); }
+        
+        /* Sprout */
+        .sprout-illustration {
+            width: 40px;
+            height: 60px;
+            background: #22C55E;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 20px 20px 0 0;
+            cursor: pointer;
+        }
+        .sprout-illustration::before, .sprout-illustration::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: #10B981;
+            border-radius: 50%;
+            top: -10px;
+        }
+        .sprout-illustration::before {
+            left: -10px;
+            transform: rotate(30deg);
+        }
+        .sprout-illustration::after {
+            right: -10px;
+            transform: rotate(-30deg);
+        }
+        
+        /* Cloud and Rain Illustration */
+        .cloud-illustration {
+            width: 250px;
+            height: 120px;
+            background: #D1D5DB;
+            border-radius: 125px;
+            position: absolute;
+            left: 20%;
+            top: 20%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        .cloud-illustration::before, .cloud-illustration::after {
+            content: '';
+            background: #D1D5DB;
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .cloud-illustration::before {
+            width: 150px;
+            height: 150px;
+            top: -60px;
+            left: 40px;
+        }
+        .cloud-illustration::after {
+            width: 100px;
+            height: 100px;
+            top: -40px;
+            right: 20px;
+        }
+        .raindrop-illustration {
+            width: 8px;
+            height: 16px;
+            background: #60A5FA;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+            animation: fall linear infinite;
+            cursor: pointer;
+        }
+        @keyframes fall {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(200px); opacity: 0; }
+        }
+        
+        /* Flower Illustration */
+        .flower-illustration {
+            position: absolute;
+            left: 50%;
+            bottom: 20px;
+            transform: translateX(-50%);
+            cursor: pointer;
+        }
+        .flower-petal {
+            width: 35px;
+            height: 70px;
+            background-color: #FACC15;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform-origin: bottom center;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .flower-petal:nth-child(1) { transform: rotate(0deg) translateY(-20px); }
+        .flower-petal:nth-child(2) { transform: rotate(60deg) translateY(-20px); }
+        .flower-petal:nth-child(3) { transform: rotate(120deg) translateY(-20px); }
+        .flower-petal:nth-child(4) { transform: rotate(180deg) translateY(-20px); }
+        .flower-petal:nth-child(5) { transform: rotate(240deg) translateY(-20px); }
+        .flower-petal:nth-child(6) { transform: rotate(300deg) translateY(-20px); }
+
+        .flower-center {
+            width: 50px;
+            height: 50px;
+            background-color: #D97706;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .flower-stem {
+            width: 15px;
+            height: 120px;
+            background-color: #22C55E;
+            position: absolute;
+            left: 50%;
+            top: 80px;
+            transform: translateX(-50%);
+            border-radius: 0 0 10px 10px;
+        }
+        .flower-stem::before {
+            content: '';
+            width: 40px;
+            height: 20px;
+            background-color: #10B981;
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+            position: absolute;
+            top: 30px;
+            left: -30px;
+            transform: rotate(-15deg);
+        }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-blue-100 text-gray-800">
 
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between">
-            <h1 class="text-2xl font-bold text-indigo-600">Brightsprout Kits</h1>
-            <nav class="mt-4 sm:mt-0">
-                <ul class="flex space-x-6">
-                    <li><a href="#home" class="text-gray-600 hover:text-indigo-600 transition duration-300">Home</a></li>
-                    <li><a href="#shop" class="text-gray-600 hover:text-indigo-600 transition duration-300">Shop</a></li>
-                    <li><a href="#about" class="text-gray-600 hover:text-indigo-600 transition duration-300">About</a></li>
-                    <li><a href="#contact" class="text-gray-600 hover:text-indigo-600 transition duration-300">Contact</a></li>
-                </ul>
-            </nav>
+    <!-- Custom Message Box -->
+    <div id="messageBox" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-[9999] hidden">
+        <div class="bg-white rounded-3xl p-8 shadow-xl text-center max-w-sm w-full transform scale-100 transition-transform duration-300">
+            <h3 class="text-3xl font-extrabold text-indigo-600 mb-4">Coming Soon!</h3>
+            <p class="text-lg text-gray-700 mb-6">Our online store is coming soon. Thank you for your patience!</p>
+            <button id="closeMessage" class="px-8 py-3 bg-pink-500 text-white font-bold rounded-full shadow-lg hover:bg-pink-600 transition-colors duration-300">Got it!</button>
         </div>
-    </header>
+    </div>
 
-    <!-- Main Content (Home Section) -->
-    <main id="home" class="container mx-auto px-4 py-12">
-        <h2 class="text-4xl font-bold text-center text-indigo-800 mb-4">Welcome to Brightsprout Kits</h2>
-        <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
-            Helping young minds grow with creative and fun learning kits. Explore our digital bundles designed for a brighter future.
-        </p>
+    <!-- Main Website Content -->
+    <div id="mainContent">
+        <header class="bg-white/90 backdrop-blur-sm shadow-xl rounded-b-[3rem] py-6 px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between sticky top-0 z-50 transition-all duration-300">
+            <div class="flex items-center gap-4 mb-4 sm:mb-0">
+                <div id="titleContainer" class="cursor-pointer">
+                    <span class="text-4xl font-extrabold text-indigo-600">Bright Sprout Kits</span>
+                </div>
+            </div>
+            <div class="mt-4 sm:mt-0 flex-grow max-w-2xl">
+                <div class="relative flex items-center bg-gray-50 rounded-full shadow-lg">
+                    <input type="text" id="searchInput" placeholder="Find a kit..." class="w-full px-6 py-4 pr-16 rounded-full text-lg border-2 border-indigo-300 focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 placeholder-gray-400">
+                    <button id="searchButton" class="absolute right-2 w-12 h-12 bg-yellow-400 text-white rounded-full shadow-md hover:bg-yellow-500 transition-transform duration-300 transform hover:scale-110 flex items-center justify-center">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 5 1.5-1.5-5-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <nav class="mt-4 sm:mt-0">
+                <button id="shopNowBtn" class="px-8 py-4 bg-pink-500 text-white font-bold text-lg rounded-full shadow-xl hover:bg-pink-600 transition-colors duration-300 transform hover:scale-105">Shop Now</button>
+            </nav>
+        </header>
 
-        <!-- Product Grid (Shop Section) -->
-        <section id="shop" class="py-12">
-            <h2 class="text-4xl font-bold text-center text-indigo-800 mb-4">Our Products</h2>
-            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
-                Discover our collection of digital learning kits designed to make learning fun and tangible for children.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-                <!-- Ultimate Tracing Bundle Card -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 max-w-sm w-full">
-                    <img src="https://placehold.co/600x400/93c5fd/1e3a8a?text=Tracing+Bundle" alt="Ultimate Tracing Bundle" class="w-full h-56 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Ultimate Tracing Bundle: Alphabets, Numbers & Shapes</h3>
-                        <p class="text-gray-500 text-sm mb-4">A complete bundle of tracing sheets with over 50 pages in one downloadable PDF, perfect for early learners to practice writing and drawing.</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xl font-bold text-indigo-600">Ksh 2,000.00</span>
-                            <a href="https://brightsproutkits.vendblue.store/product/ultimate-tracing-bundle-alphabet-numbers-shapes-one-pdf" class="bg-indigo-600 text-white font-medium py-2 px-6 rounded-full hover:bg-indigo-700 transition duration-300">Buy Now</a>
+        <main>
+            <section class="bg-pink-200 text-purple-900 text-center py-20 md:py-32 rounded-b-[5rem] shadow-2xl">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-4 animate-bounce-slow">Play & Learn!</h1>
+                <p class="text-2xl md:text-3xl mb-12 font-semibold">Fun, soft, and safe kits for your little sprout.</p>
+                <button id="exploreBtn" class="inline-block px-10 py-5 bg-yellow-400 text-purple-900 font-bold text-2xl rounded-full shadow-lg hover:bg-yellow-500 transform hover:scale-110 transition-all duration-300">Explore</button>
+            </section>
+
+            <section class="py-16 px-4">
+                <h2 class="text-4xl md:text-5xl text-center font-extrabold text-indigo-600 mb-12">Our First Kits</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    
+                    <!-- Alphabet Kit -->
+                    <div class="kit-card bg-yellow-100 rounded-[2rem] p-6 shadow-xl transform transition-all duration-300 hover:scale-105" data-keywords="alphabet letters abc">
+                        <div class="relative w-full h-48 rounded-2xl mb-4 shadow-lg bg-yellow-300">
+                            <span class="kit-icon text-white">ABC</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-blue-600 mb-2">Alphabet Adventure</h3>
+                        <p class="text-gray-700">Discover the alphabet with playful activities and games.</p>
+                    </div>
+                    
+                    <!-- Shapes Kit -->
+                    <div class="kit-card bg-purple-100 rounded-[2rem] p-6 shadow-xl transform transition-all duration-300 hover:scale-105" data-keywords="shapes circles squares triangles">
+                        <div class="relative w-full h-48 rounded-2xl mb-4 shadow-lg bg-purple-300 flex items-center justify-center">
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-16 h-16 text-white drop-shadow-md" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L2 22h20L12 2z"></path>
+                                </svg>
+                                <svg class="w-16 h-16 text-white drop-shadow-md" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-3xl font-bold text-purple-600 mb-2">Shapes Explorer</h3>
+                        <p class="text-gray-700">Learn about shapes and patterns through fun, hands-on projects.</p>
+                    </div>
+
+                    <!-- Numbers Kit -->
+                    <div class="kit-card bg-green-100 rounded-[2rem] p-6 shadow-xl transform transition-all duration-300 hover:scale-105" data-keywords="numbers counting math 123">
+                        <div class="relative w-full h-48 rounded-2xl mb-4 shadow-lg bg-green-300">
+                            <span class="kit-icon text-white">123</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-green-600 mb-2">Numbers Fun</h3>
+                        <p class="text-gray-700">Make learning to count a blast with engaging number games.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Storybook Section -->
+            <section class="py-16 px-4 bg-pink-100 rounded-t-[5rem] shadow-2xl">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-pink-600 mb-6">Storybook Corner</h2>
+                    <p class="text-lg md:text-xl mb-8 font-semibold text-gray-700">Explore our delightful stories and bring learning to life!</p>
+                    
+                    <div class="bg-white rounded-3xl p-6 md:p-10 shadow-xl flex flex-col md:flex-row items-center gap-6">
+                        <img src="https://placehold.co/250x300/e0f2fe/1e3a8a?text=Storybook+Cover" alt="Storybook Cover" class="w-48 h-auto rounded-xl shadow-lg">
+                        <div class="flex-grow text-left">
+                            <h3 class="text-3xl font-bold text-blue-800 mb-2">The Little Sprout's Big Adventure</h3>
+                            <p class="text-gray-600 mb-4">A story about a tiny sprout who learns about friendship and bravery by exploring a magical garden.</p>
+                            <a href="#" id="readNowBtn" class="inline-block px-8 py-3 bg-fuchsia-500 text-white font-bold rounded-full shadow-lg hover:bg-fuchsia-600 transition-colors duration-300 transform hover:scale-105">Read Now!</a>
                         </div>
                     </div>
                 </div>
+            </section>
+
+            <footer class="bg-blue-900 text-white text-center py-8 rounded-t-[5rem] shadow-inner">
+                <p class="font-semibold">&copy; 2024 Bright Sprout Kits. All rights reserved.</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Storybook Page (initially hidden) -->
+    <div id="storybookPage" class="hidden">
+        <header class="bg-white/90 backdrop-blur-sm shadow-xl rounded-b-[3rem] py-6 px-4 sm:px-8 flex items-center justify-between sticky top-0 z-50">
+            <h1 class="text-4xl font-extrabold text-indigo-600">The Little Sprout's Big Adventure</h1>
+            <button id="backToMain" class="px-6 py-3 bg-gray-200 text-gray-800 font-bold rounded-full shadow-lg hover:bg-gray-300 transition-colors duration-300 transform hover:scale-105">Back to Kits</button>
+        </header>
+
+        <main class="py-12 px-4 md:px-8">
+            <div class="max-w-4xl mx-auto bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-pink-600" id="pageTitle"></h2>
+                </div>
+                <div id="pageIllustration" class="relative w-full h-80 bg-blue-50 rounded-2xl mb-8 shadow-lg flex items-center justify-center p-4 overflow-hidden">
+                    <!-- Interactive illustrations will be dynamically added here -->
+                </div>
+                <div class="text-center text-lg md:text-xl font-semibold text-gray-700 leading-relaxed mb-8" id="pageText"></div>
+                
+                <!-- Voice Selector -->
+                <div class="flex flex-col items-center gap-4 mb-8">
+                    <p class="text-lg font-semibold text-indigo-600">Choose a voice:</p>
+                    <div class="flex gap-4">
+                        <button id="maleVoiceBtn" class="voice-btn px-6 py-3 bg-blue-500 text-white font-bold rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300 transform hover:scale-105 flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            Male
+                        </button>
+                        <button id="femaleVoiceBtn" class="voice-btn px-6 py-3 bg-pink-500 text-white font-bold rounded-full shadow-lg hover:bg-pink-600 transition-colors duration-300 transform hover:scale-105 flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 15.636A9 9 0 0112 21h0a9 9 0 01-6.364-2.636M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21h0l.001-.001a1.5 1.5 0 01-1.5-1.5V17a.5.5 0 01.5-.5h2a.5.5 0 01.5.5v2.5a1.5 1.5 0 01-1.5 1.5z" />
+                            </svg>
+                            Female
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex justify-center items-center gap-4">
+                    <button id="readToMeBtn" class="px-8 py-4 bg-fuchsia-500 text-white font-bold text-lg rounded-full shadow-lg hover:bg-fuchsia-600 transition-colors duration-300 transform hover:scale-105 flex items-center gap-2">
+                        <span id="readBtnIcon">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2A9 9 0 003 11a9 9 0 009 9 9 9 0 009-9A9 9 0 0012 2zm-2 15l-4-4h2.5c.35 0 .65-.18.83-.46.18-.28.23-.63.14-.97l-1.5-6c-.18-.72.07-1.46.68-1.92.61-.46 1.39-.55 2.05-.28L12 6.5l2-2c.66-.27 1.44-.18 2.05.28.61.46.86 1.2.68 1.92l-1.5 6c-.09.34-.04.69.14.97.18.28.48.46.83.46H18l-4 4-2 2z"></path>
+                            </svg>
+                        </span>
+                        <span id="readBtnText">Read to me</span>
+                    </button>
+                    <button id="autoplayBtn" class="px-8 py-4 bg-green-500 text-white font-bold text-lg rounded-full shadow-lg hover:bg-green-600 transition-colors duration-300 transform hover:scale-105">Autoplay</button>
+                    <button id="nextPageBtn" class="px-8 py-4 bg-yellow-400 text-purple-900 font-bold text-lg rounded-full shadow-lg hover:bg-yellow-500 transition-colors duration-300 transform hover:scale-105">Next Page</button>
+                </div>
             </div>
-        </section>
+        </main>
+    </div>
 
-        <!-- About Section -->
-        <section id="about" class="bg-gray-200 rounded-xl p-8 my-12 text-center">
-            <h2 class="text-3xl font-bold text-indigo-800 mb-4">About Us</h2>
-            <p class="text-gray-700 max-w-2xl mx-auto">
-                At Brightsprout Kits, we believe that education should be an adventure. Our mission is to create high-quality, engaging, and fun learning materials that help children build essential skills from the comfort of their homes. Every kit is carefully designed to spark curiosity and creativity.
-            </p>
-        </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+            const shopNowBtn = document.getElementById('shopNowBtn');
+            const exploreBtn = document.getElementById('exploreBtn');
+            const messageBox = document.getElementById('messageBox');
+            const closeMessage = document.getElementById('closeMessage');
+            const readNowBtn = document.getElementById('readNowBtn');
+            const backToMainBtn = document.getElementById('backToMain');
+            const cards = document.querySelectorAll('.kit-card');
+            const titleContainer = document.getElementById('titleContainer');
+            const mainContent = document.getElementById('mainContent');
+            const storybookPage = document.getElementById('storybookPage');
+            const nextPageBtn = document.getElementById('nextPageBtn');
+            const readToMeBtn = document.getElementById('readToMeBtn');
+            const pageTitle = document.getElementById('pageTitle');
+            const pageText = document.getElementById('pageText');
+            const pageIllustration = document.getElementById('pageIllustration');
+            const readBtnIcon = document.getElementById('readBtnIcon');
+            const readBtnText = document.getElementById('readBtnText');
+            const maleVoiceBtn = document.getElementById('maleVoiceBtn');
+            const femaleVoiceBtn = document.getElementById('femaleVoiceBtn');
+            const autoplayBtn = document.getElementById('autoplayBtn');
+            
+            // --- Sound Effects and Utilities ---
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const playSound = (frequency = 440, duration = 0.1) => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(1, audioContext.currentTime);
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                oscillator.start();
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+                oscillator.stop(audioContext.currentTime + duration);
+            };
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-12 text-center">
-            <h2 class="text-3xl font-bold text-indigo-800 mb-4">Get In Touch</h2>
-            <p class="text-gray-700 max-w-2xl mx-auto mb-6">
-                Have a question or just want to say hello? We'd love to hear from you!
-            </p>
-            <form action="#" method="POST" class="max-w-md mx-auto">
-                <div class="mb-4">
-                    <input type="text" placeholder="Your Name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-500">
-                </div>
-                <div class="mb-4">
-                    <input type="email" placeholder="Your Email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-500">
-                </div>
-                <div class="mb-6">
-                    <textarea placeholder="Your Message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-500"></textarea>
-                </div>
-                <button type="submit" class="bg-indigo-600 text-white font-medium py-3 px-8 rounded-full hover:bg-indigo-700 transition duration-300">Send Message</button>
-            </form>
-        </section>
-    </main>
+            function base64ToArrayBuffer(base64) {
+                const binaryString = atob(base64);
+                const len = binaryString.length;
+                const bytes = new Uint8Array(len);
+                for (let i = 0; i < len; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+                return bytes.buffer;
+            }
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8 mt-12">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2024 Brightsprout Kits. All Rights Reserved.</p>
-        </div>
-    </footer>
+            function pcmToWav(pcmData, sampleRate) {
+                const buffer = new ArrayBuffer(44 + pcmData.length * 2);
+                const view = new DataView(buffer);
+
+                // RIFF identifier
+                writeString(view, 0, 'RIFF');
+                // file length
+                view.setUint32(4, 36 + pcmData.length * 2, true);
+                // RIFF type
+                writeString(view, 8, 'WAVE');
+                // format chunk identifier
+                writeString(view, 12, 'fmt ');
+                // format chunk length
+                view.setUint32(16, 16, true);
+                // sample format (1 = PCM)
+                view.setUint16(20, 1, true);
+                // channel count
+                view.setUint16(22, 1, true);
+                // sample rate
+                view.setUint32(24, sampleRate, true);
+                // byte rate (sample rate * block align)
+                view.setUint32(28, sampleRate * 2, true);
+                // block align (channel count * bytes per sample)
+                view.setUint16(32, 2, true);
+                // bits per sample
+                view.setUint16(34, 16, true);
+                // data chunk identifier
+                writeString(view, 36, 'data');
+                // data chunk length
+                view.setUint32(40, pcmData.length * 2, true);
+                // write the PCM samples
+                let offset = 44;
+                for (let i = 0; i < pcmData.length; i++, offset += 2) {
+                    view.setInt16(offset, pcmData[i], true);
+                }
+
+                return new Blob([view], { type: 'audio/wav' });
+
+                function writeString(view, offset, string) {
+                    for (let i = 0; i < string.length; i++) {
+                        view.setUint8(offset + i, string.charCodeAt(i));
+                    }
+                }
+            }
+            
+            // --- Storybook Logic ---
+            const storyData = [
+                {
+                    title: "The Little Seed",
+                    text: "In a warm garden, a tiny seed named Sprout was ready to grow. Sprout loved to see the big, happy **sun** in the sky. One day, a little **bee** flew by, making Sprout smile.",
+                    illustration: `
+                        <div class="illustration-container">
+                            <div class="sun-illustration" id="sun" style="left: 70%; top: 10%;">
+                                <div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div>
+                            </div>
+                            <div class="bee-illustration" id="bee" style="left: 20%; top: 30%;">
+                                <div class="bee-wing left"></div><div class="bee-wing right"></div>
+                            </div>
+                            <div class="sprout-illustration" id="sprout" style="left: 50%; bottom: 10px;"></div>
+                        </div>
+                    `,
+                    interactiveElements: [
+                        { id: 'sun', animation: 'wobble', sound: 880 },
+                        { id: 'bee', animation: 'spin', sound: 770 },
+                        { id: 'sprout', animation: 'bounce', sound: 660 }
+                    ]
+                },
+                {
+                    title: "The Rainy Day",
+                    text: "Then, a soft rain came down. Plip-plop! Each tiny **raindrop** helped Sprout drink and grow. Sprout got bigger and stronger with every single drop!",
+                    illustration: `
+                        <div class="illustration-container">
+                            <div class="cloud-illustration" id="cloud" style="left: 30%; top: 15%;"></div>
+                            <div class="raindrop-illustration" style="left: 35%; top: 30%; animation-delay: 0s;"></div>
+                            <div class="raindrop-illustration" style="left: 45%; top: 40%; animation-delay: 1s;"></div>
+                            <div class="raindrop-illustration" style="left: 55%; top: 50%; animation-delay: 2s;"></div>
+                            <div class="raindrop-illustration" style="left: 65%; top: 60%; animation-delay: 3s;"></div>
+                            <div class="sprout-illustration" id="sprout-wet" style="left: 50%; bottom: 10px;"></div>
+                        </div>
+                    `,
+                    interactiveElements: [
+                        { id: 'cloud', animation: 'wobble', sound: 880 },
+                        { id: 'raindrop', animation: 'bounce', sound: 660 },
+                        { id: 'sprout-wet', animation: 'bounce', sound: 550 }
+                    ]
+                },
+                {
+                    title: "A Big Surprise",
+                    text: "Soon, Sprout was a tall, pretty flower! Its petals were bright yellow, just like the **sun**! Sprout waved at a friendly **bee** and felt so proud to be a big flower.",
+                    illustration: `
+                        <div class="illustration-container">
+                            <div class="sun-illustration" id="sun-final" style="left: 80%; top: 5%;">
+                                <div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div>
+                            </div>
+                            <div class="bee-illustration" id="bee-final" style="left: 15%; top: 40%;">
+                                <div class="bee-wing left"></div><div class="bee-wing right"></div>
+                            </div>
+                            <div class="flower-illustration" id="flower" style="left: 50%; bottom: 10px;">
+                                <div class="flower-petal"></div><div class="flower-petal"></div><div class="flower-petal"></div><div class="flower-petal"></div><div class="flower-petal"></div><div class="flower-petal"></div>
+                                <div class="flower-center"></div>
+                                <div class="flower-stem"></div>
+                            </div>
+                        </div>
+                    `,
+                    interactiveElements: [
+                        { id: 'sun-final', animation: 'wobble', sound: 880 },
+                        { id: 'bee-final', animation: 'spin', sound: 770 },
+                        { id: 'flower', animation: 'bounce', sound: 660 }
+                    ]
+                }
+            ];
+
+            const audioCache = new Map();
+            let currentPageIndex = 0;
+            const voices = {
+                male: ["Kore", "Charon", "Iapetus", "Orus", "Enceladus", "Algieba", "Rasalgethi", "Alnilam", "Gacrux", "Zubenelgenubi", "Sadachbia", "Sadaltager", "Achird"],
+                female: ["Puck", "Zephyr", "Leda", "Aoede", "Callirrhoe", "Autonoe", "Umbriel", "Despina", "Erinome", "Laomedeia", "Achernar", "Schedar", "Vindemiatrix", "Pulcherrima", "Sulafat"]
+            };
+            let selectedVoice = voices.female[Math.floor(Math.random() * voices.female.length)];
+            let isAutoplaying = false;
+            let autoplayTimer = null;
+            
+            const setReadButtonState = (state) => {
+                if (state === 'loading') {
+                    readToMeBtn.disabled = true;
+                    autoplayBtn.disabled = true;
+                    readBtnText.textContent = "Story is coming!";
+                    readBtnIcon.innerHTML = `<svg class="w-6 h-6 spinner" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" class="opacity-25"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>`;
+                } else if (state === 'playing') {
+                     readToMeBtn.disabled = true;
+                     readBtnText.textContent = "Reading...";
+                     readBtnIcon.innerHTML = `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2A9 9 0 003 11a9 9 0 009 9 9 9 0 009-9A9 9 0 0012 2zm-2 15l-4-4h2.5c.35 0 .65-.18.83-.46.18-.28.23-.63.14-.97l-1.5-6c-.18-.72.07-1.46.68-1.92.61-.46 1.39-.55 2.05-.28L12 6.5l2-2c.66-.27 1.44-.18 2.05.28.61.46.86 1.2.68 1.92l-1.5 6c-.09.34-.04.69.14.97.18.28.48.46.83.46H18l-4 4-2 2z"></path>
+                     </svg>`;
+                } else {
+                    readToMeBtn.disabled = false;
+                    autoplayBtn.disabled = false;
+                    readBtnText.textContent = "Read to me";
+                    readBtnIcon.innerHTML = `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A9 9 0 003 11a9 9 0 009 9 9 9 0 009-9A9 9 0 0012 2zm-2 15l-4-4h2.5c.35 0 .65-.18.83-.46.18-.28.23-.63.14-.97l-1.5-6c-.18-.72.07-1.46.68-1.92.61-.46 1.39-.55 2.05-.28L12 6.5l2-2c.66-.27 1.44-.18 2.05.28.61.46.86 1.2.68 1.92l-1.5 6c-.09.34-.04.69.14.97.18.28.48.46.83.46H18l-4 4-2 2z"></path></svg>`;
+                }
+            };
+            
+            const setVoice = (gender) => {
+                if (gender === 'male') {
+                    selectedVoice = voices.male[Math.floor(Math.random() * voices.male.length)];
+                    maleVoiceBtn.classList.add('bg-blue-700');
+                    femaleVoiceBtn.classList.remove('bg-pink-700');
+                } else if (gender === 'female') {
+                    selectedVoice = voices.female[Math.floor(Math.random() * voices.female.length)];
+                    femaleVoiceBtn.classList.add('bg-pink-700');
+                    maleVoiceBtn.classList.remove('bg-blue-700');
+                }
+            };
+
+            const speakPageText = async () => {
+                const pageKey = `${currentPageIndex}-${selectedVoice}`;
+                if (audioCache.has(pageKey)) {
+                    // Play from cache
+                    const audioUrl = audioCache.get(pageKey);
+                    const audio = new Audio(audioUrl);
+                    audio.play();
+                    setReadButtonState('playing');
+                    audio.onended = () => {
+                        setReadButtonState('ready');
+                    };
+                    return;
+                }
+                
+                setReadButtonState('loading');
+                const text = storyData[currentPageIndex].text.replace(/\*\*[^\*]+\*\*/g, '').replace('The Little Seed', 'The Little Seed,').replace('The Rainy Day', 'The Rainy Day,').replace('A Big Surprise', 'A Big Surprise,'); // Remove bold markdown
+                
+                const payload = {
+                    contents: [{ parts: [{ text: text }] }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: {
+                            voiceConfig: {
+                                prebuiltVoiceConfig: { voiceName: selectedVoice }
+                            }
+                        }
+                    },
+                    model: "gemini-2.5-flash-preview-tts"
+                };
+
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+                return new Promise(async (resolve, reject) => {
+                    let attempts = 0;
+                    const maxAttempts = 5;
+                    const baseDelay = 1000;
+
+                    const fetchWithRetry = async () => {
+                        try {
+                            const response = await fetch(apiUrl, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            });
+                            const result = await response.json();
+                            const part = result?.candidates?.[0]?.content?.parts?.[0];
+                            const audioData = part?.inlineData?.data;
+                            const mimeType = part?.inlineData?.mimeType;
+
+                            if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                                const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)[1], 10);
+                                const pcmData = base64ToArrayBuffer(audioData);
+                                const pcm16 = new Int16Array(pcmData);
+                                const wavBlob = pcmToWav(pcm16, sampleRate);
+                                const audioUrl = URL.createObjectURL(wavBlob);
+                                audioCache.set(pageKey, audioUrl); // Save to cache
+                                
+                                const audio = new Audio(audioUrl);
+                                audio.play();
+                                setReadButtonState('playing');
+                                audio.onended = () => {
+                                    setReadButtonState('ready');
+                                    resolve();
+                                };
+                            } else {
+                                console.error("Audio data missing or invalid:", result);
+                                setReadButtonState('ready');
+                                reject("Audio data missing");
+                            }
+                        } catch (error) {
+                            if (attempts < maxAttempts) {
+                                attempts++;
+                                const delay = baseDelay * Math.pow(2, attempts);
+                                setTimeout(fetchWithRetry, delay);
+                            } else {
+                                console.error("Error fetching or playing audio after multiple retries:", error);
+                                setReadButtonState('ready');
+                                reject(error);
+                            }
+                        }
+                    };
+                    fetchWithRetry();
+                });
+            };
+
+            const startAutoplay = async () => {
+                if (isAutoplaying) return;
+                isAutoplaying = true;
+                autoplayBtn.textContent = "Stop";
+                readToMeBtn.disabled = true;
+                nextPageBtn.disabled = true;
+
+                const playNextPage = async () => {
+                    if (!isAutoplaying) {
+                        return;
+                    }
+
+                    try {
+                        await speakPageText();
+                        autoplayTimer = setTimeout(() => {
+                            goToNextPage();
+                            playNextPage();
+                        }, 2000); // Wait 2 seconds before going to next page
+                    } catch (e) {
+                        stopAutoplay();
+                    }
+                };
+
+                playNextPage();
+            };
+
+            const stopAutoplay = () => {
+                isAutoplaying = false;
+                autoplayBtn.textContent = "Autoplay";
+                readToMeBtn.disabled = false;
+                nextPageBtn.disabled = false;
+                if (autoplayTimer) {
+                    clearTimeout(autoplayTimer);
+                    autoplayTimer = null;
+                }
+            };
+
+            const toggleAutoplay = () => {
+                if (isAutoplaying) {
+                    stopAutoplay();
+                } else {
+                    startAutoplay();
+                }
+            };
+            
+            const renderPage = () => {
+                const page = storyData[currentPageIndex];
+                pageTitle.textContent = page.title;
+                pageText.innerHTML = page.text;
+                pageIllustration.innerHTML = page.illustration;
+                
+                page.interactiveElements.forEach(el => {
+                    const illustrationElement = document.getElementById(el.id);
+                    if (illustrationElement) {
+                        illustrationElement.style.cursor = 'pointer';
+                        illustrationElement.addEventListener('click', () => {
+                            illustrationElement.classList.add(`${el.animation}-animation`);
+                            playSound(el.sound);
+                            setTimeout(() => {
+                                illustrationElement.classList.remove(`${el.animation}-animation`);
+                            }, 1000);
+                        });
+                    }
+                });
+
+                if (currentPageIndex === storyData.length - 1) {
+                    nextPageBtn.textContent = "Start Over";
+                } else {
+                    nextPageBtn.textContent = "Next Page";
+                }
+            };
+            
+            const goToNextPage = () => {
+                stopAutoplay();
+                if (currentPageIndex < storyData.length - 1) {
+                    currentPageIndex++;
+                } else {
+                    currentPageIndex = 0; // Loop back to the beginning
+                }
+                renderPage();
+            };
+
+            const goToMain = () => {
+                stopAutoplay();
+                mainContent.classList.remove('hidden');
+                storybookPage.classList.add('hidden');
+            };
+
+            const goToStorybook = () => {
+                stopAutoplay();
+                mainContent.classList.add('hidden');
+                storybookPage.classList.remove('hidden');
+                currentPageIndex = 0; // Reset to the first page
+                renderPage();
+            };
+
+            // --- Event Listeners ---
+            const performSearch = () => {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                cards.forEach(card => {
+                    const keywords = card.dataset.keywords.toLowerCase();
+                    const isMatch = keywords.includes(searchTerm);
+                    const isTermEmpty = searchTerm === '';
+                    card.classList.remove('ring-4', 'ring-pink-500', 'scale-110');
+                    if (isTermEmpty) {
+                        card.style.display = 'block';
+                    } else if (isMatch) {
+                        card.style.display = 'block';
+                        card.classList.add('ring-4', 'ring-pink-500', 'scale-110');
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            };
+
+            const showMessage = () => {
+                messageBox.classList.remove('hidden');
+                playSound(660);
+            };
+
+            const hideMessage = () => {
+                messageBox.classList.add('hidden');
+                playSound(440);
+            };
+            
+            const buttons = [searchButton, shopNowBtn, exploreBtn, closeMessage];
+            buttons.forEach(button => {
+                if (button) {
+                    button.addEventListener('mousedown', () => {
+                        button.classList.add('button-press-animation');
+                    });
+                    button.addEventListener('mouseup', () => {
+                        button.classList.remove('button-press-animation');
+                        if (button.id === 'searchButton') {
+                            playSound(880, 0.05);
+                        } else if (button.id === 'shopNowBtn' || button.id === 'exploreBtn') {
+                            playSound(770);
+                        } else if (button.id === 'closeMessage') {
+                             playSound(440);
+                        }
+                    });
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                    });
+                }
+            });
+
+            if (titleContainer) {
+                titleContainer.addEventListener('click', () => {
+                    titleContainer.classList.add('bounce-animation');
+                    playSound(880);
+                    setTimeout(() => {
+                        titleContainer.classList.remove('bounce-animation');
+                    }, 600);
+                });
+            }
+
+            searchInput.addEventListener('input', performSearch);
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+
+            shopNowBtn.addEventListener('click', showMessage);
+            exploreBtn.addEventListener('click', showMessage);
+            closeMessage.addEventListener('click', hideMessage);
+            readNowBtn.addEventListener('click', goToStorybook);
+            backToMainBtn.addEventListener('click', goToMain);
+            nextPageBtn.addEventListener('click', goToNextPage);
+            readToMeBtn.addEventListener('click', () => {
+                stopAutoplay();
+                speakPageText();
+            });
+            autoplayBtn.addEventListener('click', toggleAutoplay);
+
+            maleVoiceBtn.addEventListener('click', () => setVoice('male'));
+            femaleVoiceBtn.addEventListener('click', () => setVoice('female'));
+
+            setVoice('female');
+        });
+    </script>
 </body>
 </html>
